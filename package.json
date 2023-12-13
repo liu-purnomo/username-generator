@@ -1,0 +1,28 @@
+{
+  "name": "username-generator",
+  "version": "1.0.0",
+  "description": "username-generator is a simple Node.js package that provides a utility function to generate unique usernames. It can be used in applications where a random or unique username is required, such as user registration systems, chat applications, or any scenario where unique identifiers are needed.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/liu-purnomo/username-generator.git"
+  },
+  "keywords": [
+    "username",
+    "generator",
+    "unique"
+  ],
+  "author": "liupurnomo.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liu-purnomo/username-generator/issues"
+  },
+  "homepage": "https://github.com/liu-purnomo/username-generator#readme",
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}
