@@ -1,52 +1,60 @@
 # Username Generator
 
-## Description:
+## Description
 
-The usernameGenerator function can seamlessly integrate into Express controllers, taking advantage of its asynchronous nature to avoid blocking the event loop. This makes it well-suited for scenarios where you need to generate a username as part of handling HTTP requests in an Express application.
+`usernameGenerator` is a flexible JavaScript library designed to integrate seamlessly with Express.js controllers. It efficiently generates unique usernames based on user-provided criteria without blocking the event loop, ideal for handling HTTP requests within an Express application.
 
 ## Installation
 
-To install the package, you can use the following command:
+Install the package using npm:
 
 ```bash
 npm install username-generator
 ```
 
-## `generateUsername(fullName: string, usedUsernames: string[]): Promise<string>`
+## Features
 
-This function generates a unique username based on the provided full name and a list of used usernames. It is designed to be used asynchronously, making it suitable for integration into Express application controllers.
+- **Asynchronous Username Generation**: Perfect for real-time web applications.
+- **Customizable**: Supports custom lengths, inclusion of symbols, and various separators.
+- **Express Compatibility**: Optimized for use within Express.js server environments.
 
-### Parameters:
+## API Reference
 
-**options (object):** An object containing the following properties:
-- **fullName (string)**: The full name from which the username will be generated.
-- **usedUsernames (string[])**: An array containing usernames that have already been used. The function ensures that the generated username is unique among the used ones.
-- **length (number)**: (Optional) The desired length of the generated username. Default is 8.
-- **allowSymbols (boolean)**: (Optional) A flag indicating whether symbols are allowed in the generated username. Default is false.
-- **separator (string)**: (Optional) The separator to use when replacing spaces in the full name. Default is an empty string.
+### `generateUsername(options: UsernameGeneratorInput): Promise<string>`
 
-### Returns:
+Generates a unique username based on provided options.
 
-- A Promise that resolves to a string representing the generated username.
+#### Parameters
 
-### Usage in Express Controller:
+- **fullName (string)**: The user's full name from which the username will be generated.
+- **usedUsernames (string[])**: An array of usernames already in use to ensure uniqueness.
+- **length (number)**: Optional. Desired length of the username, default is 8 characters.
+- **allowSymbols (boolean)**: Optional. Whether to include symbols, default is false.
+- **separator (string)**: Optional. Character to replace spaces in names, default is an empty string.
+
+#### Returns
+
+- **Promise<string>**: A promise that resolves to the generated username.
+
+## Example Usage
+
+Below is an example of how `usernameGenerator` can be used within an Express.js controller:
 
 ```typescript
 import { usernameGenerator, UsernameGeneratorInput } from 'username-generator';
 import { Request, Response } from 'express';
 
 async function generateAndSendUsername(req: Request, res: Response) {
+  const options: UsernameGeneratorInput = {
+    fullName: req.body.fullName,
+    usedUsernames: req.body.usedUsernames || [],
+    length: req.body.length || 8,
+    allowSymbols: req.body.allowSymbols || false,
+    separator: req.body.separator || '',
+  };
+
   try {
-    const options: UsernameGeneratorInput = {
-      fullName: req.body.fullName,
-      usedUsernames: req.body.usedUsernames || [],
-      length: req.body.length || 8,
-      allowSymbols: req.body.allowSymbols || false,
-      separator: req.body.separator || '',
-    };
-
     const generatedUsername = await usernameGenerator(options);
-
     res.status(200).json({ username: generatedUsername });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -54,10 +62,12 @@ async function generateAndSendUsername(req: Request, res: Response) {
 }
 
 export { generateAndSendUsername };
-
 ```
 
-In this example, the generateAndSendUsername function is an Express controller that uses usernameGenerator asynchronously to generate a username based on the provided options. The generated username is then sent as a JSON response. Any errors during the process are handled and returned with an appropriate status code.
+This example demonstrates how the `generateAndSendUsername` function acts as an Express controller that asynchronously generates a username based on user input and sends it in the response.
 
+## Support
 
+For support, issues, or further documentation, please visit our [GitHub repository](https://github.com/liu-purnomo/username-generator).
 
+```
