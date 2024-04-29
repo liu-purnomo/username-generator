@@ -10,11 +10,11 @@ jobs:
     build:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3 # Update ke versi terbaru
             - name: Setup Node.js
-              uses: actions/setup-node@v2
+              uses: actions/setup-node@v3 # Update ke versi terbaru
               with:
-                  node-version: '16'
+                  node-version: '20' # Gunakan Node.js 20
             - name: Install dependencies
               run: npm install
             - name: Run tests
@@ -25,11 +25,11 @@ jobs:
         if: github.event_name == 'release' && github.event.action == 'created'
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3 # Update ke versi terbaru
             - name: Setup Node.js for publishing
-              uses: actions/setup-node@v2
+              uses: actions/setup-node@v3 # Update ke versi terbaru
               with:
-                  node-version: '16'
+                  node-version: '20' # Konsisten dengan versi di job build
                   registry-url: https://registry.npmjs.org/
             - name: Publish to npm
               run: npm publish --access=public
